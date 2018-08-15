@@ -1,3 +1,6 @@
+"""
+tf.train.Example
+"""
 # 2018-08-14 -- Qi
 
 import tensorflow as tf
