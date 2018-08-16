@@ -1,7 +1,7 @@
 # [Conclusion](https://blog.csdn.net/Jerr__y/article/details/70809528)
 
 * **name_scope:** 为了更好地管理变量的命名空间而提出的。比如在 tensorboard 中，因为引入了 name_scope， 我们的 Graph 看起来才井然有序。
-* """variable_scope:" 大大大部分情况下，跟 tf.get_variable() 配合使用，实现变量共享的功能。
+* **variable_scope:** 大大大部分情况下，跟 tf.get_variable() 配合使用，实现变量共享的功能。
 
 ## 1. Conclusion of `variables_example_0.1.py`
 
