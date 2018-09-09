@@ -6,3 +6,4 @@
 
 2018-08-16 scopes_variables
 
+2018-09-09 tensorflow tutorials, examples 1
