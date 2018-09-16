@@ -13,3 +13,5 @@
 2018-09-15 TensorFlow-Examples, nearest_neighbor
 2018-09-15 TensorFlow-Examples, K-Means ==> Learn this algorithm
 
+2018-09-16 TensorFlow-Examples, Random Forest
+

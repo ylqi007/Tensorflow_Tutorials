@@ -1,4 +1,6 @@
-
+"""
+https://github.com/aymericdamien/TensorFlow-Examples/blob/master/notebooks/2_BasicModels/logistic_regression.ipynb
+"""
 import tensorflow as tf
 # Import MINST data
 from tensorflow.examples.tutorials.mnist import input_data

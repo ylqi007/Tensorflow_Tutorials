@@ -1,4 +1,6 @@
-
+"""
+https://github.com/aymericdamien/TensorFlow-Examples/blob/master/notebooks/2_BasicModels/nearest_neighbor.ipynb
+"""
 import numpy as np
 import tensorflow as tf
 

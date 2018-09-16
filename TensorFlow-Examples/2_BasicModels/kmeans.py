@@ -1,3 +1,6 @@
+"""
+https://github.com/aymericdamien/TensorFlow-Examples/blob/master/notebooks/2_BasicModels/kmeans.ipynb
+"""
 from __future__ import print_function
 
 import numpy as np

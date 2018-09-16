@@ -1,3 +1,6 @@
+"""
+https://github.com/aymericdamien/TensorFlow-Examples/blob/master/notebooks/2_BasicModels/linear_regression.ipynb
+"""
 import tensorflow as tf
 import numpy
 import matplotlib.pyplot as plt
