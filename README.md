@@ -18,4 +18,4 @@
 
 2018-09-17 TensorFlow-Examples, Simple Neural Network (raw & tf.layers/estimator)
 
-
+2018-09-17 TensorFlow-Examples, Simple Neural Network (eager api)
