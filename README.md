@@ -16,3 +16,6 @@
 
 2018-09-16 TensorFlow-Examples, Random Forest
 
+2018-09-17 TensorFlow-Examples, Simple Neural Network (raw & tf.layers/estimator)
+
+
