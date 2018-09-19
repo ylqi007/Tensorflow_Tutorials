@@ -25,3 +25,5 @@
 2018-09-19 TensorFlow-Examples, Convolutional Neural Network (Still have bug) :
 `Process finished with exit code 139 (interrupted by signal 11: SIGSEGV)`
 
+2018-09-19 TensorFlow-Examples, Recurrent Neural Network `Have no idea about Recurrent Neural Network(LSTM)`
+
