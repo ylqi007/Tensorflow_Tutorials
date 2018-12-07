@@ -28,3 +28,6 @@
 2018-09-19 TensorFlow-Examples, Recurrent Neural Network `Have no idea about Recurrent Neural Network(LSTM)`
 
 2018-12-05 MoFan, basic structure of TensorFlow, Variable, Session, placeholder
+
+2018-12-06 TensorBoard, `mnist_with_summaries.py` shows how to use TensorBoard.
+
