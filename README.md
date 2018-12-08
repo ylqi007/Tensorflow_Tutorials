@@ -33,3 +33,4 @@
 
 2018-12-08 TensorFlow_Guide-->LowLevelAPIs, 'introduction_examples.py'  <br />
 2018-12-08 TensorFlow_Guide-->LowLevelAPIs, 'tensor_examples.py'        <br />
+2018-12-08 TensorFlow_Guide-->LowLevelAPIs, 'variable_examples.py'      <br />
