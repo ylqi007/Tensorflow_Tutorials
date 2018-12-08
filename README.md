@@ -31,4 +31,5 @@
 
 2018-12-06 TensorBoard, `mnist_with_summaries.py` shows how to use TensorBoard.
 
-2018-12-08 TensorFlow_Guide, 'tensor_examples.py'
+2018-12-08 TensorFlow_Guide-->LowLevelAPIs, 'introduction_examples.py'  <br />
+2018-12-08 TensorFlow_Guide-->LowLevelAPIs, 'tensor_examples.py'        <br />
