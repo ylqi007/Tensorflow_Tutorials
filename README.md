@@ -55,3 +55,8 @@
 
 2018-12-09
 * TensorFlow_Guide-->LowLevelAPIs, `ControlFlow_examples.py`    <br />
+
+2018-12-18
+* TensorFlow_Guide-->Importing_Data `data_structure_example.py` <br />
+* TensorFlow_Guide-->Importing_Data `iterator_example.py`       <br />
+* TensorFlow_Guide-->Importing_Data `reading_example.py`        <br />
