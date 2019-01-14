@@ -60,3 +60,6 @@
 * TensorFlow_Guide-->Importing_Data `data_structure_example.py` <br />
 * TensorFlow_Guide-->Importing_Data `iterator_example.py`       <br />
 * TensorFlow_Guide-->Importing_Data `reading_example.py`        <br />
+
+2019-01-13
+* [TensorBoard](https://www.tensorflow.org/guide/summaries_and_tensorboard)

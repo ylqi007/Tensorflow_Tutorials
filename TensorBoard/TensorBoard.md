@@ -1,6 +1,7 @@
 > TensorBoard operates by reading TensorFlow events files, which contain summary data that you can generate when running TensorFlow.
 
-1. First, create the TensorFlow graph that you'd like to collect summary data from, and decide which nodes you would like to annotate with (summary operations)[https://github.com/tensorflow/docs/tree/master/site/en/api_guides/python].
+1. First, create the TensorFlow graph that you'd like to collect summary data from,
+and decide which nodes you would like to annotate with [summary operations](https://github.com/tensorflow/docs/tree/master/site/en/api_guides/python).
 
 Operations in TensorFlow don't do anything until you run them, or an op that depends on their output. The summary nodes that we've just created are peripheral to the graph: none of the ops you are currently running depend on them.
 
@@ -14,9 +15,9 @@ The `FileWriter` takes a `logdir` in its constructor - this logdir is quite impo
 # 1. TensorBoard: Visualizing Learning
 ## 1.1 Serializing the data
 > TensorBoard operates by reading TensorFlow events files, which contain summary data that you can generate when running TensorFlow.
-First, create the TensorFlow graph that you'd like to collect summary data from, and decide which nodes you would like to annotate with (summary operations)[https://www.tensorflow.org/api_guides/python/summary].
+First, create the TensorFlow graph that you'd like to collect summary data from, and decide which nodes you would like to annotate with [summary operations](https://www.tensorflow.org/api_guides/python/summary).
 
-For details on all of the summary operations available, check out the docs on (summary operations)[https://github.com/tensorflow/docs/tree/master/site/en/api_guides/python].
+For details on all of the summary operations available, check out the docs on [summary operations](https://github.com/tensorflow/docs/tree/master/site/en/api_guides/python).
 
 Collect nodes which we are interested in by attaching `tf.summary.scalar`, `tf.summary.histogram`...
 
