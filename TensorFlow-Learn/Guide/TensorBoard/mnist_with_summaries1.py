@@ -100,21 +100,29 @@ def train():
 
     hidden1 = nn_layer(x, 784, 500, 'layer1')
 
+    print('### hidden1: ', hidden1, hidden1.get_shape())
+
     with tf.name_scope('dropout'):
         keep_prob = tf.placeholder(tf.float32)
         tf.summary.scalar('dropout_keep_probability', keep_prob)
         dropped = tf.nn.dropout(hidden1, keep_prob)
 
+    print('### dropped: ', dropped, dropped.get_shape())
+
     # Do not apply softmax activation yet, see below.
     y = nn_layer(dropped, 500, 10, 'layer2', act=tf.identity)
+
+    print('### y: ', y, y.get_shape(), tf.shape(y))
 
     with tf.name_scope('cross_entropy'):
         with tf.name_scope('total'):
             cross_entropy = tf.losses.sparse_softmax_cross_entropy(labels=y_, logits=y)
     tf.summary.scalar('cross_entropy', cross_entropy)
+    print('### cross_entropy: ', cross_entropy, cross_entropy.get_shape())
 
     with tf.name_scope('train'):
         train_step = tf.train.AdamOptimizer(FLAGS.learning_rate).minimize(cross_entropy)
+    print('### train_step: ', train_step)
 
     with tf.name_scope('accuracy'):
         with tf.name_scope('correct_prediction'):
@@ -122,6 +130,8 @@ def train():
         with tf.name_scope('accuracy'):
             accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
     tf.summary.scalar('accuracy', accuracy)
+    print('### correct_prediction: ', correct_prediction, correct_prediction.get_shape(), tf.shape(correct_prediction))
+    print('### accuracy: ', accuracy, accuracy.get_shape(), tf.shape(accuracy))
 
     # Merge all the summaries and write them out to /tmp/tensorflow/mnist/logs/mnist_with_summaries (by default)
     merged = tf.summary.merge_all()
