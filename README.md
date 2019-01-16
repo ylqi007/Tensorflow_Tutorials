@@ -63,3 +63,12 @@
 
 2019-01-13
 * [TensorBoard](https://www.tensorflow.org/guide/summaries_and_tensorboard)
+
+2019-01-16
+* [TensorFlow-Low_Level_APIs](https://www.tensorflow.org/guide/low_level_intro)
+    - Tensors
+    - Variabls
+    - Graphs and Sessions
+    - Save and Restore
+    - Control Flow [Not yet]
+    - Ragged Tensors [Not yet]
