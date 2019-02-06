@@ -59,21 +59,23 @@ Y1 = tf.tanh(tf.matmul(Y0, Wy) + tf.matmul(X1, Wx) + b) # [None, 5] + [None, 5] 
 
 init = tf.global_variables_initializer()
 
-X0_batch = np.array([[0, 1, 2], [3, 4, 5], [6, 7, 8], [9, 0, 1]])   # t = 0
-X1_batch = np.array([[9, 8, 7], [0, 0, 0], [6, 5, 4], [3, 2, 1]])   # t = 1
+X0_batch = np.array([[0, 1, 2], [3, 4, 5], [6, 7, 8], [9, 0, 1]])   # at t = 0, shape=(4, 3)
+X1_batch = np.array([[9, 8, 7], [0, 0, 0], [6, 5, 4], [3, 2, 1]])   # at t = 1, shape=(4, 3)
 
-# with tf.Session() as sess:
-#     init.run()
-#     print('X0:\n', sess.run([X0], feed_dict={X0: X0_batch}))
-#     print('b:\n', b.eval())
-#     print('Wx:\n', Wx.eval())
-#     Y0_val, Y1_val = sess.run([Y0, Y1], feed_dict={X0: X0_batch, X1: X1_batch})
-#
-# print('Y0_val:\n', Y0_val)
-# print('Y1_val:\n', Y1_val)
+with tf.Session() as sess:
+    init.run()
+    # print('X0:\n', sess.run([X0], feed_dict={X0: X0_batch}))
+    # print('b:\n', b.eval())
+    # print('Wx:\n', Wx.eval())
+    Y0_val, Y1_val = sess.run([Y0, Y1], feed_dict={X0: X0_batch, X1: X1_batch})
 
+print('Y0_val:\n', Y0_val)  # shape=(4, 5), 4 instances and each instance corresponding to a output of shape (1, 5)
+print('Y1_val:\n', Y1_val)  # shape=(4, 5)
 
+# =========================================================================== #
+# static_rnn()
 # The following code creates the exact same model as the previous one: static_rnn()
+# =========================================================================== #
 reset_graph()
 
 X0 = tf.placeholder(tf.float32, [None, n_inputs])
@@ -82,15 +84,20 @@ X1 = tf.placeholder(tf.float32, [None, n_inputs])
 basic_cell = tf.nn.rnn_cell.BasicRNNCell(num_units=n_neurons)
 output_seqs, states = tf.nn.static_rnn(basic_cell, [X0, X1], dtype=tf.float32)
 
+print('basic_cell: ', basic_cell)
+print('output_seqs: ', output_seqs)
+
 Y0, Y1 = output_seqs
 print('Y0: ', Y0)
 print('Y1: ', Y1)
+print('state: ', states)
 
 init = tf.global_variables_initializer()
 
 with tf.Session() as sess:
     init.run()
-    Y0_val, Y1_val = sess.run([Y0, Y1], feed_dict={X0: X0_batch, X1: X1_batch})
+    Y0_val, Y1_val, states = sess.run([Y0, Y1, states], feed_dict={X0: X0_batch, X1: X1_batch})
 
 print('Y0: ', Y0_val)
 print('Y1: ', Y1_val)
+print('states: ', states)

@@ -1,67 +1,125 @@
 """
 2019/02/04
 
-Hands on Machine Learning with scikit-learn and TensorFlow  -- Chapter 11
+Hands on Machine Learning with scikit-learn and TensorFlow  -- Chapter 14
 
-Example 2. MNIST
+Example 2. Packing sequences
 """
 import numpy as np
 import tensorflow as tf
 
-n_steps = 28
-n_inputs = 28
-n_neurons = 150
-n_outputs = 10
 
-learning_rate = 0.001
+def reset_graph(seed=42):
+    tf.reset_default_graph()
+    tf.set_random_seed(seed)
+    np.random.seed(seed)
+
+
+# =========================================================================== #
+# Packing sequences
+# =========================================================================== #
+n_steps = 2
+n_inputs = 3
+n_neurons = 5
 
 X = tf.placeholder(tf.float32, [None, n_steps, n_inputs])
-y = tf.placeholder(tf.int32, [None])
+print('X: ', X)
+_X = tf.transpose(X, perm=[1, 0, 2])
+print('_X: ', _X)
+X_seqs = tf.unstack(tf.transpose(X, [1, 0, 2]))
+print('X_seqs: ', X_seqs)   # n_time_steps, ? mini_batch, 3 inputs each instance
+
+basic_cell = tf.nn.rnn_cell.BasicRNNCell(num_units=n_neurons)
+outputs_seqs, states = tf.nn.static_rnn(basic_cell, X_seqs, dtype=tf.float32)
+
+print('outputs_seqs: ', outputs_seqs)
+outputs = tf.transpose(tf.stack(outputs_seqs), perm=[0, 1, 2])
+print('outputs: ', outputs)
+
+init = tf.global_variables_initializer()
+
+
+X_batch = np.array([
+    # t = 0,    # t = 1
+    [[0, 1, 2], [9, 8, 7]],     # instance 1
+    [[3, 4, 5], [0, 0, 0]],     # instance 2
+    [[6, 7, 8], [6, 5, 4]],     # instance 3
+    [[9, 0, 1], [3, 2, 1]],     # instance 4
+])
+
+print(X_batch, X_batch.shape)
+
+with tf.Session() as sess:
+    init.run()
+    output_vals = outputs.eval(feed_dict={X: X_batch})
+
+print('output_vals: ', output_vals)
+print('output_vals after transpose: ', np.transpose(output_vals, axes=[1, 0, 2])[1])
+
+
+# =========================================================================== #
+# Using dynamic_rnn()
+# =========================================================================== #
+reset_graph()
+
+n_steps = 2
+n_inputs = 3
+n_neurons = 5
+
+X = tf.placeholder(tf.float32, [None, n_steps, n_inputs])
 
 basic_cell = tf.nn.rnn_cell.BasicRNNCell(num_units=n_neurons)
 outputs, states = tf.nn.dynamic_rnn(basic_cell, X, dtype=tf.float32)
 
-logits = tf.layers.dense(states, n_outputs)
-xentropy = tf.nn.sparse_softmax_cross_entropy_with_logits(labels=y,
-                                                          logits=logits)
-loss = tf.reduce_mean(xentropy)
-optimizer = tf.train.AdamOptimizer(learning_rate=learning_rate)
-training_op = optimizer.minimize(loss)
-correct = tf.nn.in_top_k(logits, y, 1)
-accuracy = tf.reduce_mean(tf.cast(correct, tf.float32))
-
 init = tf.global_variables_initializer()
 
-# Load data
-(X_train, y_train), (X_test, y_test) = tf.keras.datasets.mnist.load_data()
-X_train = X_train.astype(np.float32).reshape(-1, 28*28) / 255.0
-X_test = X_test.astype(np.float32).reshape(-1, 28*28) / 255.0
-y_train = y_train.astype(np.int32)
-y_test = y_test.astype(np.int32)
-X_valid, X_train = X_train[:5000], X_train[5000:]
-y_valid, y_train = y_train[:5000], y_train[5000:]
-
-
-def shuffle_batch(X, y, batch_size):
-    rnd_idx = np.random.permutation(len(X))
-    n_batches = len(X) // batch_size
-    for batch_idx in np.array_split(rnd_idx, n_batches):
-        X_batch, y_batch = X[batch_idx], y[batch_idx]
-        yield X_batch, y_batch
-
-
-X_test = X_test.reshape((-1, n_steps, n_inputs))
-
-n_epochs = 100
-batch_size = 150
+X_batch = np.array([
+        [[0, 1, 2], [9, 8, 7]],     # instance 1
+        [[3, 4, 5], [0, 0, 0]],     # instance 2
+        [[6, 7, 8], [6, 5, 4]],     # instance 3
+        [[9, 0, 1], [3, 2, 1]],     # instance 4
+    ])
 
 with tf.Session() as sess:
     init.run()
-    for epoch in range(n_epochs):
-        for X_batch, y_batch in shuffle_batch(X_train, y_train, batch_size):
-            X_batch = X_batch.reshape((-1, n_steps, n_inputs))
-            sess.run(training_op, feed_dict={X: X_batch, y: y_batch})
-        acc_batch = accuracy.eval(feed_dict={X: X_batch, y: y_batch})
-        acc_test = accuracy.eval(feed_dict={X: X_test, y: y_test})
-        print(epoch, "Last batch accuracy:", acc_batch, "Test accuracy:", acc_test)
+    outputs_val = outputs.eval(feed_dict={X: X_batch})
+
+print('Using dynamic_rcnn(): ', outputs_val)
+
+
+# =========================================================================== #
+# Setting the sequence lengths
+# =========================================================================== #
+reset_graph()
+
+n_steps = 2
+n_inputs = 3
+n_neurons = 5
+
+X = tf.placeholder(tf.float32, [None, n_steps, n_inputs])
+basic_cell = tf.nn.rnn_cell.BasicRNNCell(num_units=n_neurons)
+
+seq_length = tf.placeholder(tf.int32, [None])
+outputs, states = tf.nn.dynamic_rnn(basic_cell, X, dtype=tf.float32, sequence_length=seq_length)
+
+
+init = tf.global_variables_initializer()
+
+
+X_batch = np.array([
+    # step 0     step 1
+    [[0, 1, 2], [9, 8, 7]],     # instance 1
+    [[3, 4, 5], [0, 0, 0]],     # instance 2 (padded with zero vectors)
+    [[6, 7, 8], [6, 5, 4]],     # instance 3
+    [[9, 0, 1], [3, 2, 1]],     # instance 4
+])
+seq_length_batch = np.array([2, 1, 2, 2])
+
+with tf.Session() as sess:
+    init.run()
+    outputs_val, states_val = sess.run(
+        [outputs, states], feed_dict={X: X_batch, seq_length: seq_length_batch})
+
+print('In setting the sequence lengths:\n ', output_vals)
+print('In setting the sequence lengths:\n ', states_val)
 
