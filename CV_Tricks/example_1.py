@@ -1,4 +1,5 @@
 """
+2019-03-28
 https://cv-tricks.com/artificial-intelligence/deep-learning/deep-learning-frameworks/tensorflow/tensorflow-tutorial/
 
 1. Data in TF is represented by n-dimensional arrays called Tensors.

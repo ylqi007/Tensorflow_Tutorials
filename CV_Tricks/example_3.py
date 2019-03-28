@@ -1,4 +1,5 @@
 """
+2019-03-28
 https://cv-tricks.com/tensorflow-tutorial/training-convolutional-neural-network-for-image-classification/
 
 Types of layers:
