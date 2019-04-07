@@ -72,3 +72,7 @@
     - Save and Restore
     - Control Flow [Not yet]
     - Ragged Tensors [Not yet]
+
+2019-04-07
+* [Estimator](https://www.tensorflow.org/guide/estimators)
+    - Premade Estimators
