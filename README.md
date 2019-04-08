@@ -76,3 +76,4 @@
 2019-04-07
 * [Estimator](https://www.tensorflow.org/guide/estimators)
     - Premade Estimators
+    - Custom Estimators (20190408)

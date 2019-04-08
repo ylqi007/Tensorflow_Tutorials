@@ -175,3 +175,14 @@ The `tf.train.Saver` class provides methods to save and restore models.
 ## 5.4 Using SavedModel with Estimators
 
 
+# 6. Control Flow
+> [AutoGraph](https://github.com/tensorflow/tensorflow/tree/master/tensorflow/python/autograph) helps you write complicated graph code using normal Python.
+Behind the scenes, AutoGraph automatically transforms your code into the equivalent `TensorFlow graph code`.
+
+## 6.1 Automatically convert Python control flow
+1. Write code in python and then convert to tensorflow version.
+
+## 6.2 Decorator
+> If you don't need easy access to the original Python function, use the `convert` decorator.
+
+##
