@@ -49,13 +49,19 @@ def main(argv):
     print(type(my_feature_columns))
     print(type(my_feature_columns[0]))
 
+    my_checkpointing_config = tf.estimator.RunConfig(
+        save_checkpoints_secs=20*60,    # Save checkpoints every 20 minues.
+        keep_checkpoint_max=5,          # Retain the 5 most recent checkpoints.
+    )
+
     # Build 2 hidden layer DNN with 10, 10 untis respectively.
     classifier = tf.estimator.DNNClassifier(
         feature_columns=my_feature_columns,
         model_dir="/tmp/DNNClassifier",
         hidden_units=[10, 10],      # Two hidden layers of 10 nodes each.
-        n_classes=3)                # The model must choose between 3 classes.
-
+        n_classes=3,                # The model must choose between 3 classes.
+        config=my_checkpointing_config
+    )
     # Train the Model.
     classifier.train(
         input_fn=lambda: iris_data.train_input_fn(train_x, train_y, args.batch_size),
